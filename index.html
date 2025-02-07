@@ -4,59 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تطبيق ختم القرآن</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            direction: rtl;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            width: 300px;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        input, button {
-            margin: 10px 0;
-            padding: 10px;
-            width: 100%;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #27ae60;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>تطبيق ختم القرآن</h1>
-        <input type="number" id="days" placeholder="عدد الأيام">
-        <button onclick="calculate()">احسب</button>
-        <h2 id="result"></h2>
+        <header>
+            <img src="quran-icon.png" alt="Quran Icon" class="logo">
+            <h1>تطبيق ختم القرآن</h1>
+            <p>حاسب عدد الصفحات اليومية لختم القرآن في فترة زمنية محددة</p>
+            <button id="theme-toggle">تبديل الوضع الليلي</button>
+        </header>
+        <main>
+            <div class="input-section">
+                <input type="number" id="days" placeholder="عدد الأيام">
+                <button onclick="calculate()">احسب</button>
+            </div>
+            <div class="result-section">
+                <h2 id="result"></h2>
+            </div>
+            <div class="random-verse">
+                <h3>آية عشوائية:</h3>
+                <p id="verse"></p>
+            </div>
+        </main>
+        <footer>
+            <p>p5xg | 2025</p>
+        </footer>
     </div>
 
     <script>
+        // حساب عدد الصفحات
         function calculate() {
             const days = document.getElementById('days').value;
             const totalPages = 604; // عدد صفحات القرآن
@@ -67,6 +45,31 @@
                 document.getElementById('result').innerText = "الرجاء إدخال عدد أيام صحيح.";
             }
         }
+
+        // الوضع الليلي
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerText = 'تبديل الوضع النهاري';
+            } else {
+                themeToggle.innerText = 'تبديل الوضع الليلي';
+            }
+        });
+
+        // آية عشوائية
+        const verses = [
+            "وَذَكِّرْ فَإِنَّ الذِّكْرَى تَنْفَعُ الْمُؤْمِنِينَ (الذاريات: 55)",
+            "إِنَّ مَعَ الْعُسْرِ يُسْرًا (الشرح: 6)",
+            "وَمَنْ يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مَخْرَجًا (الطلاق: 2)",
+            "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا (الشرح: 5)",
+            "رَبِّ زِدْنِي عِلْمًا (طه: 114)"
+        ];
+
+        const verseElement = document.getElementById('verse');
+        verseElement.innerText = verses[Math.floor(Math.random() * verses.length)];
     </script>
 </body>
 </html>
